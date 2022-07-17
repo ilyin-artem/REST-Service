@@ -9,7 +9,8 @@ import { UpdateArtistDto } from './dto/update-artist.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { Artist } from './interfaces/artist.interface';
 import { TracksService } from './../tracks/tracks.service';
-import { AlbumsService } from 'src/albums/albums.service';
+import { AlbumsService } from './../albums/albums.service';
+import { FavoritesService } from './../favorites/favorites.service';
 
 @Injectable()
 export class ArtistsService {
@@ -19,6 +20,9 @@ export class ArtistsService {
 
     @Inject(forwardRef(() => AlbumsService))
     private readonly albumsService: AlbumsService,
+
+    @Inject(forwardRef(() => FavoritesService))
+    private readonly favoritesService: FavoritesService,
   ) {}
   private artists: Artist[] = [];
 
@@ -64,6 +68,7 @@ export class ArtistsService {
     if (artist) {
       await this.tracksService.removeArtist(id);
       await this.albumsService.removeArtist(id);
+      await this.favoritesService.removeArtist(id);
       this.artists = this.artists.filter((artist) => artist.id !== id);
       return;
     }

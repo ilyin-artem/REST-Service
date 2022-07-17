@@ -8,13 +8,17 @@ import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { Album } from './interfaces/album.interface';
-import { TracksService } from 'src/tracks/tracks.service';
+import { TracksService } from './../tracks/tracks.service';
+import { FavoritesService } from './../favorites/favorites.service';
 
 @Injectable()
 export class AlbumsService {
   constructor(
     @Inject(forwardRef(() => TracksService))
     private readonly tracksService: TracksService,
+
+    @Inject(forwardRef(() => FavoritesService))
+    private readonly favoritesService: FavoritesService,
   ) {}
   private albums: Album[] = [];
 
@@ -58,7 +62,8 @@ export class AlbumsService {
   async remove(id: string): Promise<Album> {
     const album = this.albums.find((album) => id === album.id);
     if (album) {
-      await this.tracksService.remove(id);
+      await this.tracksService.removeAlbums(id);
+      await this.favoritesService.removeAlbum(id);
       this.albums = this.albums.filter((album) => album.id !== id);
       return;
     }
