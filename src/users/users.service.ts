@@ -21,6 +21,7 @@ export class UsersService {
       createdAt: createdTime,
       updatedAt: createdTime,
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...responseUser } = newUser;
     this.users.push(newUser);
     return responseUser;
@@ -56,6 +57,7 @@ export class UsersService {
             })
           : user,
       );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...responseUser } = updatedUser;
       return responseUser;
     }

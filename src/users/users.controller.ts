@@ -39,9 +39,9 @@ export class UsersController {
   @Put(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() UpdatePasswordDto: UpdatePasswordDto,
+    @Body() updatePasswordDto: UpdatePasswordDto,
   ): Promise<Omit<User, 'password'>> {
-    return this.usersService.update(id, UpdatePasswordDto);
+    return this.usersService.update(id, updatePasswordDto);
   }
 
   @Delete(':id')

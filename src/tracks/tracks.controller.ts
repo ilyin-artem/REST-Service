@@ -39,9 +39,9 @@ export class TracksController {
   @Put(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() UpdateTrackDto: UpdateTrackDto,
+    @Body() updateTrackDto: UpdateTrackDto,
   ): Promise<Track> {
-    return this.tracksService.update(id, UpdateTrackDto);
+    return this.tracksService.update(id, updateTrackDto);
   }
 
   @Delete(':id')
