@@ -13,7 +13,7 @@ import {
 import { TracksService } from './tracks.service';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
-import { Track } from './interfaces/tracks.interface';
+import { Track } from './interfaces/track.interface';
 
 @Controller('track')
 export class TracksController {
@@ -32,7 +32,7 @@ export class TracksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Track> {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Track> {
     return this.tracksService.findOne(id);
   }
 

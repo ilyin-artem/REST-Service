@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { v4 as uuidv4 } from 'uuid';
-import { Track } from './interfaces/tracks.interface';
+import { Track } from './interfaces/track.interface';
 
 @Injectable()
 export class TracksService {
@@ -52,5 +52,18 @@ export class TracksService {
       return;
     }
     throw new NotFoundException();
+  }
+  async removeArtist(id: string): Promise<void> {
+    this.tracks = this.tracks.map((track) =>
+      track.artistId === id ? { ...track, artistId: null } : track,
+    );
+    return;
+  }
+
+  async removeAlbums(id: string): Promise<void> {
+    this.tracks = this.tracks.map((track) =>
+      track.albumId === id ? { ...track, albumId: null } : track,
+    );
+    return;
   }
 }

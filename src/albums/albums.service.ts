@@ -1,11 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import {
+  Injectable,
+  NotFoundException,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
+import { v4 as uuidv4 } from 'uuid';
 import { Album } from './interfaces/album.interface';
+import { TracksService } from 'src/tracks/tracks.service';
 
 @Injectable()
 export class AlbumsService {
+  constructor(
+    @Inject(forwardRef(() => TracksService))
+    private readonly tracksService: TracksService,
+  ) {}
   private albums: Album[] = [];
 
   async create(createAlbumDto: CreateAlbumDto): Promise<Album> {
@@ -21,15 +31,43 @@ export class AlbumsService {
     return this.albums;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} album`;
+  async findOne(id: string): Promise<Album> {
+    const album = this.albums.find((album) => id === album.id);
+    if (album) return album;
+    throw new NotFoundException();
   }
 
-  update(id: number, updateAlbumDto: UpdateAlbumDto) {
-    return `This action updates a #${id} album`;
+  async update(id: string, updateAlbumDto: UpdateAlbumDto): Promise<Album> {
+    const album = this.albums.find((album) => id === album.id);
+    if (album) {
+      let updatedAlbum: Album | null = null;
+      this.albums = this.albums.map((album) =>
+        album.id === id
+          ? (updatedAlbum = {
+              ...album,
+              ...updateAlbumDto,
+            })
+          : album,
+      );
+
+      return updatedAlbum;
+    }
+    throw new NotFoundException();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} album`;
+  async remove(id: string): Promise<Album> {
+    const album = this.albums.find((album) => id === album.id);
+    if (album) {
+      await this.tracksService.remove(id);
+      this.albums = this.albums.filter((album) => album.id !== id);
+      return;
+    }
+    throw new NotFoundException();
+  }
+  async removeArtist(id: string): Promise<void> {
+    this.albums = this.albums.map((album) =>
+      album.artistId === id ? { ...album, artistId: null } : album,
+    );
+    return;
   }
 }

@@ -32,16 +32,16 @@ export class ArtistsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Artist> {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Artist> {
     return this.artistsService.findOne(id);
   }
 
   @Put(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() UpdateArtistDto: UpdateArtistDto,
+    @Body() updateArtistDto: UpdateArtistDto,
   ): Promise<Artist> {
-    return this.artistsService.update(id, UpdateArtistDto);
+    return this.artistsService.update(id, updateArtistDto);
   }
 
   @Delete(':id')
