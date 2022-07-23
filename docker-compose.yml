@@ -1,0 +1,8 @@
+version: '3.9' # optional since v1.27.0
+services:
+  app:
+    build: .
+    command: npm run start:dev
+    ports:
+      - '${PORT}:${PORT}'
+    restart: always
