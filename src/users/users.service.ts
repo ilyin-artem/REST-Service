@@ -55,7 +55,7 @@ export class UsersService {
             ...user,
             password: updatePasswordDto.newPassword,
             version: user.version + 1,
-            createdAt: Number(user.createdAt),
+            createdAt: +user.createdAt,
             updatedAt: updatedAt,
           }),
         )

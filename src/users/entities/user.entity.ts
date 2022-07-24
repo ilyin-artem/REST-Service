@@ -21,6 +21,7 @@ export class UserEntity {
   updatedAt: number;
 
   toResponse() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...response } = this;
     return response;
   }

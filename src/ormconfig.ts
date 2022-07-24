@@ -1,5 +1,4 @@
 import { DataSourceOptions } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
 
 export const ormconfig: DataSourceOptions = {
   type: 'postgres',

@@ -8,7 +8,6 @@ import { FavoritesModule } from './favorites/favorites.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormconfig } from './ormconfig';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { ConfigModule } from '@nestjs/config';
     TracksModule,
     FavoritesModule,
     TypeOrmModule.forRoot(ormconfig),
-    ConfigModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
