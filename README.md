@@ -26,13 +26,13 @@ npm install
 ## Running application in docker
 
 ```
-docker:start
+npm run docker:start
 ```
 
 ## Docker scan script
 
 ```
-docker:scan
+npm run docker:scan
 ```
 
 After starting the app on port (4000 as default) you can open
