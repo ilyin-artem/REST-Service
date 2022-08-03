@@ -20,7 +20,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "typeorm:create": "node ./node_modules/typeorm/cli migration:create ./src/migration/migration -- -n",
-    "docker:scan": "docker scan infostorm/homeservice"
+    "docker:scan": "docker scan infostorm/homeservice",
+    "docker:start": "docker-compose up --build"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

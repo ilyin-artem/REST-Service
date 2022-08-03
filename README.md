@@ -26,7 +26,7 @@ npm install
 ## Running application in docker
 
 ```
-docker-compose up --build
+docker:start
 ```
 
 ## Docker scan script
