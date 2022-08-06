@@ -8,6 +8,7 @@ import { FavoritesModule } from './favorites/favorites.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormconfig } from './ormconfig';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ormconfig } from './ormconfig';
     TracksModule,
     FavoritesModule,
     TypeOrmModule.forRoot(ormconfig),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

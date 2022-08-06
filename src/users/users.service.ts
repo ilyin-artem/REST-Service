@@ -26,8 +26,12 @@ export class UsersService {
       createdAt: createdTime,
       updatedAt: createdTime,
     };
-    const user = this.userRepository.create(newUser);
-    return (await this.userRepository.save(user)).toResponse();
+    try {
+      const user = this.userRepository.create(newUser);
+      return (await this.userRepository.save(user)).toResponse();
+    } catch (error) {
+      console.log(error.code);
+    }
   }
 
   async findAll(): Promise<UserEntity[]> {
@@ -36,6 +40,13 @@ export class UsersService {
 
   async findOne(id: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({ where: { id } });
+    if (user) return user;
+    throw new NotFoundException();
+  }
+  async findOneByName(userName: string): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({
+      where: { login: userName },
+    });
     if (user) return user;
     throw new NotFoundException();
   }
