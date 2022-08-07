@@ -25,7 +25,7 @@ export class AuthController {
     return this.authService.signUp(authCredentialsDto);
   }
   @Public()
-  @Post('/signin')
+  @Post('/login')
   @HttpCode(HttpStatus.OK)
   singIn(
     @Body() authCredentialsDto: AuthCredentialsDto,
@@ -49,9 +49,4 @@ export class AuthController {
     const user = req.user;
     return this.authService.refreshTokens(user['id'], user['refreshToken']);
   }
-
-  // return this.authService.logout(user['id']);
-  //   refreshTokens(@Req() req: Request): any {
-  //     return this.authService.refreshTokens();
-  //   }
 }

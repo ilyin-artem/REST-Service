@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AlbumsModule } from './albums/albums.module';
 import { ArtistsModule } from './artists/artists.module';
 import { TracksModule } from './tracks/tracks.module';
@@ -22,13 +20,12 @@ import { AccessGuard } from './guards/access.guard';
     TypeOrmModule.forRoot(ormconfig),
     AuthModule,
   ],
-  controllers: [AppController],
+
   providers: [
     {
       provide: APP_GUARD,
       useClass: AccessGuard,
     },
-    AppService,
   ],
 })
 export class AppModule {}

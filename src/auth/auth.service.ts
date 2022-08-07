@@ -41,14 +41,12 @@ export class AuthService {
     const { login, password } = authCredentialsDto;
     const user = await this.usersService.findOneByName(login);
     const id = user.id;
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-      const tokens = await this.getTokens(id, login);
-      await this.updateRtHash(user.id, tokens.refreshToken);
-      return tokens;
-    } else {
-      throw new ForbiddenException('Access Denied');
-    }
+    if (!user) throw new ForbiddenException('Access Denied');
+    const passwordMatches = bcrypt.compare(password, user.password);
+    if (!passwordMatches) throw new ForbiddenException('Access Denied');
+    const tokens = await this.getTokens(id, login);
+    await this.updateRtHash(user.id, tokens.refreshToken);
+    return tokens;
   }
 
   async logout(id: string) {
@@ -56,8 +54,6 @@ export class AuthService {
     if (user.hashRt) await this.usersService.updateHashRt(id, null);
   }
   async refreshTokens(id: string, rt: string) {
-    console.log('error');
-
     const user = await this.usersService.findOne(id);
     if (!user) throw new ForbiddenException('Access Denied');
     if (!user.hashRt) throw new ForbiddenException('Access Denied');
