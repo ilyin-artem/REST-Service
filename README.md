@@ -14,7 +14,7 @@ git clone https://github.com/ilyin-artem/nodejs2022Q2-service.git
 ## Switch to branch
 
 ```
-git switch service-part-3
+git switch task8-auth
 ```
 
 ## Installing NPM modules
