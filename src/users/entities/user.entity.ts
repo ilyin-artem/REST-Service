@@ -20,6 +20,9 @@ export class UserEntity {
   @Column()
   updatedAt: number;
 
+  @Column()
+  hashRt: string | null;
+
   toResponse() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...response } = this;

@@ -81,4 +81,14 @@ export class UsersService {
       throw new NotFoundException();
     }
   }
+  async updateHashRt(id: string, hash: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    await this.userRepository.save(
+      this.userRepository.create({
+        ...user,
+        hashRt: hash,
+      }),
+    );
+    return;
+  }
 }
