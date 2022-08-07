@@ -11,13 +11,13 @@ import { JwtPayload } from '../interfaces/jwt-payload.interface';
 import { UserEntity } from 'src/users/entities/user.entity';
 
 @Injectable()
-export class JwtAccessStrategy extends PassportStrategy(Strategy) {
+export class JwtAccessStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
   ) {
     super({
-      secretOrKey: 'tempSecret1',
+      secretOrKey: process.env.JWT_SECRET_KEY,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
