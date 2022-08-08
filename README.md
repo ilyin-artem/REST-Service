@@ -8,7 +8,13 @@
 ## Downloading
 
 ```
-git clone {repository URL}
+git clone https://github.com/ilyin-artem/nodejs2022Q2-service.git
+```
+
+## Switch to branch
+
+```
+git switch task8-auth
 ```
 
 ## Installing NPM modules
@@ -17,10 +23,16 @@ git clone {repository URL}
 npm install
 ```
 
-## Running application
+## Running application in docker
 
 ```
-npm start
+npm run docker:start
+```
+
+## Docker scan script
+
+```
+npm run docker:scan
 ```
 
 After starting the app on port (4000 as default) you can open
